@@ -25,13 +25,13 @@ impl Framebuffer {
 
     pub fn set_pixel(&mut self, x: usize, y: usize, color: u32) {
         if x < self.width && y < self.height {
-            self.buffer[y * self.width + x] = color;
+            self.buffer[(self.height - y - 1) * self.width + x] = color;
         }
     }
 
     pub fn get_pixel(&self, x: usize, y: usize) -> u32 {
         if x < self.width && y < self.height {
-            self.buffer[y * self.width + x]
+            self.buffer[(self.height - y - 1) * self.width + x]
         } else {
             self.background_color
         }
@@ -142,7 +142,7 @@ impl Framebuffer {
         .unwrap_or_else(|e| {
             panic!("{}", e);
         });
-    
+
         // Convertir el buffer a un formato que minifb pueda usar
         let buffer: Vec<u32> = self.buffer.iter().map(|&color| {
             // Convertir de 0xAARRGGBB a 0x00RRGGBB
@@ -151,10 +151,10 @@ impl Framebuffer {
             let b = color & 0xFF;
             (r << 16) | (g << 8) | b
         }).collect();
-    
+
+        // Mostrar la ventana hasta que el usuario presione ESC
         while window.is_open() && !window.is_key_down(Key::Escape) {
             window.update_with_buffer(&buffer, self.width, self.height).unwrap();
         }
     }
 }
-    
