@@ -20,16 +20,26 @@ fn main() {
     ];
 
 
-    // Agregar el polígono 2 en la rama Poligon-2
+    // poligono 2
 let poly2 = [
     (321, 335), (288, 286), (339, 251), (374, 302)
 ];
 
 // Dibujar ambos polígonos
-fb.draw_polygon(&poly1, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0xFFFF00).to_hex());
-fb.draw_polygon(&poly2, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0x0000FF).to_hex());
-fb.render_buffer("out.bmp").unwrap();
-fb.display();
 
+let poligono_3 = vec![
+        (377, 249), (411, 197), (436, 249),
+    ];
+
+    
+   
+
+    fb.draw_polygon(&poly1, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0xFFFF00).to_hex());
+    fb.draw_polygon(&poly2, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0x0000FF).to_hex());
+    fb.draw_polygon(&poligono_3, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0xFF0000).to_hex());
+
+    fb.render_buffer("out.bmp").unwrap();
+    fb.display();
+    
 
 }
