@@ -26,6 +26,20 @@ fn main() -> std::io::Result<()> {
         0xFFFF00  // Color de relleno (amarillo)
     );
 
+
+    // Definir los puntos del Polígono 2
+    let polygon2_points = vec![
+        (321, 335), (288, 286), (339, 251), (374, 302)
+    ];
+
+    // Dibujar el Polígono 2 (azul con orilla blanca)
+    framebuffer.draw_polygon(
+        &polygon2_points, 
+        0xFFFFFF, // Color de la orilla (blanco)
+        0x0000FF  // Color de relleno (azul)
+    );
+    
+
     // Guardar el framebuffer como un archivo BMP
     framebuffer.render_buffer("out.bmp")?;
 
