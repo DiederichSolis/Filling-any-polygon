@@ -38,7 +38,12 @@ let poligono_3 = vec![
         (597, 215), (552, 214), (517, 144), (466, 180),
     ];
 
-    
+    let poligono_5 = vec![
+        (682, 175), (708, 120), (735, 148), (739, 170),
+    ];
+
+  
+ 
    
 // Dibujar  polígonos
 
@@ -47,6 +52,13 @@ let poligono_3 = vec![
     fb.draw_polygon(&poligono_3, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0xFF0000).to_hex());
 
     fb.draw_polygon(&poligono_4, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0x00FF00).to_hex());
+
+    fb.draw_polygon(&poligono_5, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0x000000).to_hex());
+
+
+
+  
+   
 
 
     fb.render_buffer("out.bmp").unwrap();
