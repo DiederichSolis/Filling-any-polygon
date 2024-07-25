@@ -1,52 +1,35 @@
 mod framebuffer;
-mod line;
 mod bmp;
+mod color;
 
 use framebuffer::Framebuffer;
-use line::Line;
+use color::Color;
 
-fn main() -> std::io::Result<()> {
-    let width = 800;
-    let height = 600;
-    let mut framebuffer = Framebuffer::new(width, height, 0x000000); // Fondo negro
-
-    // Limpiar el framebuffer con un fondo negro
-    framebuffer.clear();
-
-    // Definir los puntos del Polígono 1
-    let polygon1_points = vec![
-        (165, 380), (185, 360), (180, 330), (207, 345), (233, 330), (230, 360), 
-        (250, 380), (220, 385), (205, 410), (193, 383)
-    ];
-
-    // Dibujar el Polígono 1 (amarillo con orilla blanca)
-    framebuffer.draw_polygon(
-        &polygon1_points, 
-        0xFFFFFF, // Color de la orilla (blanco)
-        0xFFFF00  // Color de relleno (amarillo)
-    );
-
-
-    // Definir los puntos del Polígono 2
-    let polygon2_points = vec![
-        (321, 335), (288, 286), (339, 251), (374, 302)
-    ];
-
-    // Dibujar el Polígono 2 (azul con orilla blanca)
-    framebuffer.draw_polygon(
-        &polygon2_points, 
-        0xFFFFFF, // Color de la orilla (blanco)
-        0x0000FF  // Color de relleno (azul)
-    );
+fn main() {
+    let width = 1000;
+    let height = 1000;
+    let background_color = Color::from_hex(0x000000).to_hex();
     
+    let mut fb = Framebuffer::new(width, height, background_color);
+    
+    // Dibujar Polígono 1
+    let poly1 = [
+        (165, 380), (185, 360), (180, 330), (207, 345), 
+        (233, 330), (230, 360), (250, 380), (220, 385), 
+        (205, 410), (193, 383)
+    ];
 
-    // Guardar el framebuffer como un archivo BMP
-    framebuffer.render_buffer("out.bmp")?;
 
-    println!("Framebuffer rendered to out.bmp");
+    // Agregar el polígono 2 en la rama Poligon-2
+let poly2 = [
+    (321, 335), (288, 286), (339, 251), (374, 302)
+];
 
-    // Mostrar la imagen en una ventana
-    framebuffer.display();
+// Dibujar ambos polígonos
+fb.draw_polygon(&poly1, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0xFFFF00).to_hex());
+fb.draw_polygon(&poly2, Color::from_hex(0xFFFFFF).to_hex(), Color::from_hex(0x0000FF).to_hex());
+fb.render_buffer("out.bmp").unwrap();
+fb.display();
 
-    Ok(())
+
 }
